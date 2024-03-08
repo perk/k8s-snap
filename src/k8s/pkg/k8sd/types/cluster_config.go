@@ -43,9 +43,10 @@ type Certificates struct {
 }
 
 type Kubelet struct {
-	CloudProvider string `yaml:"cloud-provider,omitempty"`
-	ClusterDNS    string `yaml:"cluster-dns,omitempty"`
-	ClusterDomain string `yaml:"cluster-domain,omitempty"`
+	CloudProvider      string   `yaml:"cloud-provider,omitempty"`
+	ClusterDNS         string   `yaml:"cluster-dns,omitempty"`
+	ClusterDomain      string   `yaml:"cluster-domain,omitempty"`
+	RegisterWithTaints []string `yaml:"register-with-taints,omitempty"`
 }
 
 type APIServer struct {
@@ -179,6 +180,9 @@ func ClusterConfigFromBootstrapConfig(b *apiv1.BootstrapConfig) ClusterConfig {
 		},
 		K8sDqlite: K8sDqlite{
 			Port: b.K8sDqlitePort,
+		},
+		Kubelet: Kubelet{
+			RegisterWithTaints: b.Taints,
 		},
 	}
 

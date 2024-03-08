@@ -11,6 +11,8 @@ import (
 type BootstrapConfig struct {
 	// Components are the components that should be enabled on bootstrap.
 	Components []string `yaml:"components"`
+	// Taints on the control-plane during bootstrap
+	Taints []string `yaml:"taints"`
 	// ClusterCIDR is the CIDR of the cluster.
 	ClusterCIDR string `yaml:"cluster-cidr"`
 	// ServiceCIDR is the CIDR of the cluster services.
@@ -23,6 +25,7 @@ type BootstrapConfig struct {
 // SetDefaults sets the fields to default values.
 func (b *BootstrapConfig) SetDefaults() {
 	b.Components = []string{"dns", "metrics-server", "network"}
+	b.Taints = []string{}
 	b.ClusterCIDR = "10.1.0.0/16"
 	b.ServiceCIDR = "10.152.183.0/24"
 	b.EnableRBAC = vals.Pointer(true)

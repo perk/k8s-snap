@@ -126,6 +126,8 @@ func getConfigInteractively(stdin io.Reader, stdout io.Writer, stderr io.Writer)
 	config.ServiceCIDR = askQuestion(stdin, stdout, stderr, "Please set the Service CIDR:", nil, config.ServiceCIDR, nil)
 	rbac := askBool(stdin, stdout, stderr, "Enable Role Based Access Control (RBAC)?", []string{"yes", "no"}, "yes")
 	*config.EnableRBAC = rbac
+	taints := askQuestion(stdin, stdout, stderr, "Any taints on the control nodes?", nil, "", nil)
+	config.Taints = strings.Split(taints, ",")
 	return config
 }
 
